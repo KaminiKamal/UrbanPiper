@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  **NOTE:** This is a template for index.html. It uses ejs and htmlWebpackPlugin to generate a different index.html for each environment. htmlWebpackPlugin will dynamically add references to the scripts and styles that it bundles to this file. The generated bundles have hash-based filenames, so it's necessary to add the references dynamically.
+  For more info on ejs, see http://www.embeddedjs.com/. For examples of using it with htmlWebpackPlugin, see https://github.com/jaketrent/html-webpack-template/blob/master/index.ejs
+  -->
+<head>
+  <!--
+    The htmlWebpackPlugin will parse the logic below so that trackJS is only added to the production version of index.html (since only webpack.config.prod.js provides the trackJS token)
+    This is an example of how to add features to index.html for only one environment.
+    To track JavaScript errors via TrackJS, sign up for a free trial at TrackJS.com and enter your token in /webpack.config.prod.js on line 55.
+   -->
+  <% if (htmlWebpackPlugin.options.trackJSToken) { %>
+  <script>window._trackJs = {token: '<%= htmlWebpackPlugin.options.trackJSToken %>'};</script>
+  <script src="https://d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js"></script>
+  <% } %>
+
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+  <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
+  <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+    heap.load("654510926");
+  </script>
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8"/>
+  <meta id="Viewport" name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+ <!--   <title>Castiko</title> -->
+
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- For mobile devices -->
+  <meta name="viewport" content='width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+  <meta name="description" content="Castiko is a platform to connect Actors and Casting Directors. Actors – create your own acting profiles with photos & videos. Get auditions. Casting directors – manage all your data, run auditions and find new actors">
+  <meta name="keywords" content="Acting, Audition, Actor, Casting, Film, Castiko's Official Website, Casting Directors in Mumbai, Search Actors">
+  <meta name="filename" content="Castiko-Acting-Audition-Casting-Tool-Home">
+  <meta property="og:title" content="Castiko |  Making casting easier!"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="http://www.castiko.com/"/>
+  <meta property="og:image" content="http://www.castiko.com/assets/img/logo.png"/>
+  <meta property="og:description" content="Castiko is a platform to connect Actors and Casting Directors. Actors – create your own acting profiles with photos & videos. Get auditions. Casting directors – manage all your data, run auditions and find new actors"/>
+  <title>Castiko | Acting auditions and casting for film production</title>
+
+  <!-- Bootstrap Core CSS -->
+  <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
+
+  <!-- Custom CSS -->
+  <!-- <link href="assets/css/landing-page.css" rel="stylesheet">
+  <link href="assets/css/animate.css" rel="stylesheet"> -->
+  <!-- Custom Fonts -->
+  <!-- <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  </head>
+<body>
+<div id="app"></div>
+  <!-- jQuery -->
+  <script src="assets/js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="assets/js/bootstrap.min.js"></script>
+
+  <script src="assets/js/wow.min.js"></script>
+  <script>new WOW().init();</script>
+
+  <script src="assets/js/carousel-swipe.js"></script>
+
+  <script>
+  $("#CD-Carousel").carousel();
+  $("#rev-Carousel").carousel();
+</script>
+
+
+</body>
+</html>
