@@ -1,7 +1,7 @@
 {
-  "name": "castiko-front",
+  "name": "urbanpiper-front",
   "version": "0.1.0",
-  "description": "React-Redux Front end for Castiko",
+  "description": "React-Redux Front end for urbanpiper",
   "engines": {
     "npm": ">=3"
   },
@@ -19,7 +19,7 @@
     "test": "jest",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
   },
-  "author": "manan.bharara@gmail.com",
+  "author": "kaminikamaliem@gmail.com",
   "license": "MIT",
   "dependencies": {
     "apollo-client": "1.4.2",
