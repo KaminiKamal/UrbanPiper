@@ -1,18 +1,9 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './index.css';
-// import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
-
-// ReactDOM.render(<App />, document.getElementById('app'));
-// registerServiceWorker();
-/* eslint-disable import/default */
 
 import React from 'react';
 import {render} from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory, Route } from 'react-router';
-import App from "./App";
+import App from "./components/App.js";
 import routes from './routes';
 //import configureStore from './store/configureStore';
 //require('./favicon.ico'); // Tell webpack to load favicon.ico
@@ -20,10 +11,10 @@ import routes from './routes';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReduxModal from 'react-redux-modal';
 import 'semantic-ui-css/semantic.min.css';
-import ApolloClient, { createNetworkInterface } from 'apollo-client'
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo'
 const networkInterface = createNetworkInterface({
-  uri: "http://graphql.org/swapi-graphql/"
+  uri: "http://localhost:4000/graphql/"
 });
 
 const client = new ApolloClient({
