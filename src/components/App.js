@@ -51,8 +51,9 @@ class App extends Component {
       
     }).catch((err) => {console.log("err::", err)})
   }
+
   pagination(){
-    fetch("http://localhost:3000/twitterPagination",{
+    fetch("http://localhost:3000/twitterPagination/`${localStorage.setItem('user_id')}`",{
             method: 'GET',
             headers: {
               'content-type': 'application/json'
@@ -65,6 +66,7 @@ class App extends Component {
             console.log("err::", err)
           })
   }
+
   componentDidMount(){
 
     const url = GET_FEED_LIST+"?user_id="+localStorage.getItem("user_id");
@@ -79,6 +81,10 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(data => {
+      let user_info = {
+        uid:  localStorage.setItem("user_id"),
+        user_data: data 
+      }
       console.log('Here is the data: ', data);
      
         fetch("http://localhost:3000/setAllTwitterList",{

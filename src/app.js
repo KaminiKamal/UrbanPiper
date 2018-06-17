@@ -26,8 +26,19 @@ function getUiConfig() {
         'signInSuccessWithAuthResult': function(authResult, redirectUrl) {
           if (authResult.user) {
             localStorage.setItem("Bottr.loginUser", authResult.credential.accessToken);
+            //localStorage.setItem("Bottr.uid", );
             localStorage.setItem("user_id", authResult.user.providerData[2].uid);//user_id for twitter
             handleSignedInUser(authResult.user);
+
+            var data = {
+              displayName: authResult.user.providerData[2].displayName,
+              uid: authResult.user.providerData[2].uid,
+              email: authResult.user.providerData[2].email,
+              photoURL: authResult.user.providerData[2].photoURL,
+              providerId: authResult.user.providerData[2].providerId,
+              phoneNumber: authResult.user.providerData[2].phoneNumber
+            }
+
             fetch("http://localhost:3000/login",{
                 method: 'POST',
                 headers: {
@@ -35,8 +46,7 @@ function getUiConfig() {
                     'content-type': 'application/json'
                 },
         
-          //'Content-Type': 'application/json',
-                body: JSON.stringify(authResult.user)
+                body: JSON.stringify(data)
             })
             .then((res) => {})
             .catch((err) => {})
