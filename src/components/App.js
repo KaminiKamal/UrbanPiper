@@ -1,141 +1,152 @@
 import React, { Component } from 'react';
+// import logo from './logo.svg';
+// import './App.css';
+import TwitterFeed from "./TwitterFeed";
 import _ from 'lodash';
-import { Link } from 'react-router';
-import { Input, Card, Icon, Image, Button } from 'semantic-ui-react';
-import { GET_FEED_LIST,  UPVOTE_TWEET} from "../constants/constants.js";
+import firebase from 'firebase';
+import {GLOBAL_CONFIG, GET_TWITTER_FEEDS} from "../constants/constants";
+import { Button } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
+
+const config = {
+  apiKey: "AIzaSyCWhKWfA1VeJxBV85tufrl8TVG9G9e_8oM",
+  authDomain: "bottr-e76c1.firebaseapp.com",
+  databaseURL: "https://bottr-e76c1.firebaseio.com",
+  projectId: "bottr-e76c1",
+  storageBucket: "bottr-e76c1.appspot.com",
+  messagingSenderId: "788410949261"
+};
+firebase.initializeApp(config);
 
 class App extends Component {
-
   constructor(props){
     super(props);
     this.state = {
       response: [],
-      SCREEN_NAME:'',
-      FEED_ID: '',
-     // GET_SPECIFIC_FEED_ITEM = "https://twitter.com/+`${this.state.SCREEN_NAME}`+/status/1007095239683837952"
+      upper_limit: 5,
+      lower_limit: 0
     }
   }
 
-  upVoteTweet(e, element){
-    const data = {
-      id: element.user[0].tweet_id,
-      tweet_stat_count: element.user[0].tweet_stat_count+1
-    };
-    
-    fetch(UPVOTE_TWEET, { 
-      method: 'POST',
-      headers: {
-        'authorization' : window.localStorage.getItem("Bottr.loginToken"),
-        'content-type': 'application/json'
-      },
-    
-      //'Content-Type': 'application/json',
-      body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Here is the data: ', data);
-        var arr = this.state.response;
-       _.map(
-        this.state.response
-     , (el, i) => {
-      
-          if(el.user[0].tweet_id === element.user[0].tweet_id){
-            arr.splice(i, 1, el);
-            
-          }
-      
-     });
-     this.setState({response: arr});
-
-      
-    }).catch((err) => {console.log("err::", err)})
-  }
-
-  pagination(){
-    fetch("http://localhost:3000/twitterPagination/`${localStorage.setItem('user_id')}`",{
-            method: 'GET',
-            headers: {
-              'content-type': 'application/json'
-            }
-          })
-          .then((data) => {
-            this.setState({response: data})
-          })
-          .catch((err) => {
-            console.log("err::", err)
-          })
-  }
-
   componentDidMount(){
+   
+    const endpoint = GLOBAL_CONFIG+GET_TWITTER_FEEDS;
+    // fetch(url+"")
+    // .then((res) => {console.log("twitter feeds", res)})
+    // .catch((err) => {console.log("err", err)})
+    fetch(endpoint).then((response) => {
+      //console.log(response);
+      response.json().then((data) => {
+          console.log(data.response);
+          this.setState({response: data.response});
+          console.log("this.state:", this.state);
+      });
+  });
+  }
 
-    const url = GET_FEED_LIST+"?user_id="+localStorage.getItem("user_id");
+  loadMore(e){
+    if(this.state.upper_limit === 20){
+      alert("that's all you have")
+    }
+    let count = this.state.upper_limit+5
+    this.setState({upper_limit: count})
+  }
 
-    fetch(url, { 
-      method: 'GET',
-      headers: {
-        'authorization' : window.localStorage.getItem("Bottr.loginToken"),
-        'content-type': 'application/json'
-      },
-    //body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-      let user_info = {
-        uid:  localStorage.setItem("user_id"),
-        user_data: data 
+  authenticate(e){
+    let provider =  new firebase.auth.TwitterAuthProvider();
+    // firebase.auth().signInWithPopup(provider).then(function(result) {
+     // localStorage.setItem("uid", result.user.uid);
+    //   console.log("twitter auth", result);
+    //   // var data = {
+      //   displayName: result.user.displayName,
+      //   uid: result.user.uid,
+      //   email: result.user.email,
+      //   photoURL: result.user.photoURL,
+      //   providerId: result.credential.accessToken,
+      //   phoneNumber: result.user.phoneNumber
+      // }
+
+      var data = {
+        displayName
+              :
+        "kamthtralll",
+        email
+        :
+        "nsimiiwimport { Louter';hf@castiko.com",
+        phoneNumber
+        :
+        null,
+        photoURL
+        :
+        "https://absdlwed.twimg.com/sticky/default_profile_images/default_profile_normal.png",
+        accessToken
+        :
+        "8285194587465605db12-jiuyiuy2Eh05mDHyl91tuRP0SynR9VUfo4Gl",
+        uid
+        :
+        "1ZSZ2k64Stcu4640afdbPewfolBxFDt1y2",
       }
-      console.log('Here is the data: ', data);
-     
-        fetch("http://localhost:3000/setAllTwitterList",{
+      
+      console.log("autenticated/", data)
+     // const url = "https://kaminimcq.herokuapp.clocalStorage.setItem("uid", result.user.uid);om/login"
+      const url = "http://localhost:3000/login"
+      const endpoint = "https://kaminimcq.herokuapp.com/";
+      //if(result.user.uid !== null){console.log("111");
+        fetch(endpoint+"login", { 
           method: 'POST',
           headers: {
+            //'authorization' : window.localStorage.getItem("Castiko.loginToken"),
             'content-type': 'application/json'
           },
+        
+          //'Content-Type': 'application/json',
           body: JSON.stringify(data)
         })
-        .then((data) => {
-          this.pagination();
-        })
-        .catch((err) => {
-          console.log("err::", err);
-        })
-        //console.log("state set", this.state.response);
-      })
-      
-    .catch((err) => {console.log("err::", err)})
+        .then(response => response.json())
+        .then(data => {
+          console.log('Here is the data: ', data.response._id);
+          localStorage.setItem("uid", data.response._id);
+          // fetch(endpoint+"getTwitterFeed")
+          // .then((res) => {console.log("twitter feeds", res)})
+          // .catch((err) => {console.log("err", err)})
+        }).catch((err) => {console.log("err::", err)})
+        // fetch("http://localhost:3000/login",{
+        //   method: 'POST',
+        //   header: {
+        //     'content-type': 'application/json'
+        //   },
+        //   body: data
+        // })
+        // .then((res) => res.json())
+        // .then((res) => {console.log("response::", res)})
+        // .catch((err) => {console.log("err: ", err)})
+  //    }
+
+    // }).catch(function(error) {console.log("err::", error)
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage =return (<TwitterFeed tweet={tweet} key={key} />) error.message;
+    //   // The email of the user's account used.
+    //   var email = error.email;
+    //   // The firebase.auth.AuthCredential type that was used.
+    //   var credential = error.credential;
+    //   // ...
+    // });
   }
 
   render() {
-    console.log("rendering the number of likes")
-    
     return (
-      <div>
-        <Card.Group>
-
+      <div className="App">
+        <Button color="blue" fluid onClick={this.authenticate.bind(this)}> Login with twitter </Button>
         {
-          _.map(this.state.response, (element, index) => {
-            return (  <Card>
-              <Card.Content>
-                <Image floated='right' size='mini' src={element.user[0].profile_image_url_https} />
-                <Card.Header><Link to="/twitter/`${element.user[0].screen_name}/status/`${element.user[0].tweet_id}">{element.user[0].screen_name}`"></Link></Card.Header>
-                <Card.Meta>{element.user[0].location}</Card.Meta>
-                <Card.Description>
-                  {element.user[0].description}
-                </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <div className='ui two buttons'>
-                  <Button  color='twitter' content={element.user[0].tweet_stat_count} icon="thumbs up" onClick={this.upVoteTweet.bind(this, element)} />
-                  <Button color='twitter' content="down vote" icon="thumbs down" />
-                </div>
-              </Card.Content>
-            </Card>)
+          _.map(this.state.response, (tweet, key) => {
+            if(key<this.state.upper_limit){
+              return (<TwitterFeed tweet={tweet} key={key} />)
+            }
+            
           })
         }
-
-        </Card.Group>
-        <Button content="Load More" onClick={this.pagination.bind(this)}/>
+        <Button loading onClick={this.loadMore.bind(this)} />
       </div>
     );
   }
